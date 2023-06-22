@@ -12,12 +12,11 @@ import {
     Image,
     Keyboard,
     TouchableOpacity,
-    KeyboardAvoidingView,
+    KeyboardAvoidingView
 } from 'react-native';
 import Loader from '../components/Loader';
 
-// import AsyncStorage from '@react-native-community/async-storage';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }: any) => {
     const [userEmail, setUserEmail] = useState('');
@@ -47,7 +46,9 @@ const Login = ({ navigation }: any) => {
         }
         formBody = formBody.join('&');
 
-        fetch('http://localhost:3000/api/user/login', {
+        navigation.replace('DrawerNavigationRoutes');
+
+        /*fetch('http://localhost:3000/api/user/login', {
             method: 'POST',
             body: formBody,
             headers: {
@@ -63,7 +64,7 @@ const Login = ({ navigation }: any) => {
                 console.log(responseJson);
                 // If server response message same as Data Matched
                 if (responseJson.status === 'success') {
-                    // AsyncStorage.setItem('user_id', responseJson.data.email);
+                    AsyncStorage.setItem('user_id', responseJson.data.email);
                     console.log(responseJson.data.email);
                     navigation.replace('DrawerNavigationRoutes');
                 } else {
@@ -75,7 +76,7 @@ const Login = ({ navigation }: any) => {
                 //Hide Loader
                 setLoading(false);
                 console.error(error);
-            });
+            });*/
     };
 
     return (

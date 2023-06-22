@@ -78,12 +78,12 @@ const DrawerNavigationRoutes = () => {
             drawerContent={CustomSidebarMenu}>
             <Drawer.Screen
                 name="homeScreenStack"
-                options={{ drawerLabel: 'Home Screen' }}
+                options={{ drawerLabel: 'Home' }}
                 component={homeScreenStack}
             />
             <Drawer.Screen
                 name="settingScreenStack"
-                options={{ drawerLabel: 'Setting Screen' }}
+                options={{ drawerLabel: 'Settings' }}
                 component={settingScreenStack}
             />
         </Drawer.Navigator>
