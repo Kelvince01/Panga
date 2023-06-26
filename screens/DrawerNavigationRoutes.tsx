@@ -8,6 +8,7 @@ import Settings from './Settings';
 import Home from './Home';
 import CustomSidebarMenu from '../components/CustomSidebarMenu';
 import NavigationDrawerHeader from '../components/NavigationDrawerHeader';
+import Expenses from './Expenses';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -63,6 +64,33 @@ const settingScreenStack = ({ navigation }: any) => {
     );
 };
 
+const expenseScreenStack = ({ navigation }: any) => {
+    return (
+        <Stack.Navigator
+            initialRouteName="ExpensesScreen"
+            screenOptions={{
+                headerLeft: () => (
+                    <NavigationDrawerHeader navigationProps={navigation} />
+                ),
+                headerStyle: {
+                    backgroundColor: '#307ecc', //Set Header color
+                },
+                headerTintColor: '#fff', //Set Header text color
+                headerTitleStyle: {
+                    fontWeight: 'bold', //Set Header text style
+                },
+            }}>
+            <Stack.Screen
+                name="ExpensesScreen"
+                component={Expenses}
+                options={{
+                    title: 'expenses', //Set Header Title
+                }}
+            />
+        </Stack.Navigator>
+    );
+};
+
 const DrawerNavigationRoutes = () => {
     return (
         // drawerContentOptions={{
@@ -80,6 +108,11 @@ const DrawerNavigationRoutes = () => {
                 name="homeScreenStack"
                 options={{ drawerLabel: 'Home' }}
                 component={homeScreenStack}
+            />
+            <Drawer.Screen
+                name="expenseScreenStack"
+                options={{ drawerLabel: 'Expenses' }}
+                component={expenseScreenStack}
             />
             <Drawer.Screen
                 name="settingScreenStack"

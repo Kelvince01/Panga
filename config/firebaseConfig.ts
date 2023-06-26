@@ -1,4 +1,11 @@
+// import { initializeApp } from 'firebase/app';
+// import * as firebase from "firebase";
+// import "firebase/firestore";
+
+import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 // Optionally import the services that you want to use
 // import {...} from "firebase/auth";
@@ -9,16 +16,24 @@ import { initializeApp } from 'firebase/app';
 
 // Initialize Firebase
 const firebaseConfig = {
-    apiKey: 'api-key',
-    authDomain: 'project-id.firebaseapp.com',
-    databaseURL: 'https://project-id.firebaseio.com',
-    projectId: 'project-id',
-    storageBucket: 'project-id.appspot.com',
-    messagingSenderId: 'sender-id',
-    appId: 'app-id',
-    measurementId: 'G-measurement-id',
+    apiKey: "AIzaSyDBjkRwEnXlfRZ1NiFlFWb9KV5zgc_kOz8",
+    authDomain: "panga-13e9d.firebaseapp.com",
+    databaseURL: "https://panga-13e9d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "panga-13e9d",
+    storageBucket: "panga-13e9d.appspot.com",
+    messagingSenderId: "443829492321",
+    appId: "1:443829492321:web:bc4dafc5396d843f48e820",
+    measurementId: "G-Y8Q89TMLP2"
 };
 
-const app = initializeApp(firebaseConfig);
 // For more information on how to access Firebase in your project,
 // see the Firebase documentation: https://firebase.google.com/docs/web/setup#access-firebase
+
+// Initialize Firebase
+export const FIREBASE_APP = initializeApp(firebaseConfig);
+export const FIREBASE_ANALYTICS = getAnalytics(FIREBASE_APP);
+
+export const fireDB = FIREBASE_APP.firestore();
+
+export const FIRESTORE_DB = getFirestore(FIREBASE_APP);
+export const FIREBASE_AUTH = getAuth(FIREBASE_APP);
