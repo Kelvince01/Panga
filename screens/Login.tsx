@@ -16,68 +16,49 @@ import {
 } from 'react-native';
 import { COLORS } from '../assets/AppStyles';
 import Loader from '../components/Loader';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { FIREBASE_AUTH } from "../config/firebaseConfig";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+// import { Icon } from "react-native-elements";
+// import firebase from "firebase/compat";
+// import auth = firebase.auth;
 
 
 const Login = ({ navigation }: any) => {
-    const [userEmail, setUserEmail] = useState('');
-    const [userPassword, setUserPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const [errortext, setErrortext] = useState('');
-
     const passwordInputRef: any = createRef();
+    const [value, setValue] = useState({
+        email: '',
+        password: '',
+        error: ''
+    })
 
-    const handleSubmitPress = () => {
-        setErrortext('');
-        if (!userEmail) {
-            alert('Please fill Email');
-            return;
-        }
-        if (!userPassword) {
-            alert('Please fill Password');
+    const signIn = async () => {
+        if (value.email === '' || value.password === '') {
+            setValue({
+                ...value,
+                error: 'Email and password are mandatory.'
+            })
             return;
         }
         setLoading(true);
-        let dataToSend: any = { email: userEmail, password: userPassword };
-        let formBody: any = [];
-        for (let key in dataToSend) {
-            let encodedKey = encodeURIComponent(key);
-            let encodedValue = encodeURIComponent(dataToSend[key]);
-            formBody.push(encodedKey + '=' + encodedValue);
-        }
-        formBody = formBody.join('&');
 
-        navigation.replace('DrawerNavigationRoutes');
-
-        /*fetch('http://localhost:3000/api/user/login', {
-            method: 'POST',
-            body: formBody,
-            headers: {
-                //Header Defination
-                'Content-Type':
-                    'application/x-www-form-urlencoded;charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                //Hide Loader
+        try {
+            let response = await signInWithEmailAndPassword(FIREBASE_AUTH, value.email, value.password);
+            console.log(response);
+            if (response) {
                 setLoading(false);
-                console.log(responseJson);
-                // If server response message same as Data Matched
-                if (responseJson.status === 'success') {
-                    AsyncStorage.setItem('user_id', responseJson.data.email);
-                    console.log(responseJson.data.email);
-                    navigation.replace('DrawerNavigationRoutes');
-                } else {
-                    setErrortext(responseJson.msg);
-                    console.log('Please check your email id or password');
-                }
+                await AsyncStorage.setItem('user_id', response.user.email!);
+            }
+            navigation.replace('DrawerNavigationRoutes');
+        } catch (error: any) {
+            setValue({
+                ...value,
+                error: error.message,
             })
-            .catch((error) => {
-                //Hide Loader
-                setLoading(false);
-                console.error(error);
-            });*/
-    };
+            setLoading(false);
+        }
+    }
 
     return (
         <View style={styles.mainBody}>
@@ -102,12 +83,14 @@ const Login = ({ navigation }: any) => {
                                 }}
                             />
                         </View>
+
+                        {!!value.error && <View style={styles.errorTextStyle}><Text style={styles.errorTextStyle}>{value.error}</Text></View>}
+
                         <View style={styles.SectionStyle}>
                             <TextInput
                                 style={styles.inputStyle}
-                                onChangeText={(UserEmail) =>
-                                    setUserEmail(UserEmail)
-                                }
+                                value={value.email}
+                                onChangeText={(email: string) => setValue({ ...value, email: email })}
                                 placeholder="Enter Email" //dummy@abc.com
                                 placeholderTextColor="#8b9cb5"
                                 autoCapitalize="none"
@@ -120,13 +103,17 @@ const Login = ({ navigation }: any) => {
                                 underlineColorAndroid="#f000"
                                 blurOnSubmit={false}
                             />
+                            {/*  inlineImageLeft={
+                                    <Icon
+                                  name='key'
+                                  size={16}
+                                />*/}
                         </View>
                         <View style={styles.SectionStyle}>
                             <TextInput
                                 style={styles.inputStyle}
-                                onChangeText={(UserPassword) =>
-                                    setUserPassword(UserPassword)
-                                }
+                                value={value.password}
+                                onChangeText={(password: string) => setValue({ ...value, password: password })}
                                 placeholder="Enter Password" //12345
                                 placeholderTextColor="#8b9cb5"
                                 keyboardType="default"
@@ -138,15 +125,15 @@ const Login = ({ navigation }: any) => {
                                 returnKeyType="next"
                             />
                         </View>
-                        {errortext != '' ? (
+                        {/* {errorText != '' ? (
                             <Text style={styles.errorTextStyle}>
-                                {errortext}
+                                {errorText}
                             </Text>
-                        ) : null}
+                        ) : null} */}
                         <TouchableOpacity
                             style={styles.buttonStyle}
                             activeOpacity={0.5}
-                            onPress={handleSubmitPress}>
+                            onPress={signIn}>
                             <Text style={styles.buttonTextStyle}>LOGIN</Text>
                         </TouchableOpacity>
                         <Text
@@ -168,7 +155,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         backgroundColor: COLORS.WHITE_COLOR,
-        // backgroundColor: '#307ecc',
         alignContent: 'center',
     },
     SectionStyle: {
@@ -215,8 +201,14 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     errorTextStyle: {
-        color: COLORS.ERROR_COLOR,
+        marginTop: 10,
+        padding: 10,
         textAlign: 'center',
         fontSize: 14,
-    },
+        color: COLORS.WHITE_COLOR,
+        backgroundColor: '#D54826FF',
+        borderRadius: 30,
+        marginLeft: 35,
+        marginRight: 35
+    }
 });

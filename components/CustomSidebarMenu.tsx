@@ -9,9 +9,16 @@ import {
     DrawerItemList,
 } from '@react-navigation/drawer';
 import { COLORS } from '../assets/AppStyles';
-
+import { useAuthentication } from "../utils/hooks/useAuthentication";
+import Firebase from "../config/firebaseConfig";
 
 const CustomSidebarMenu = (props: any) => {
+    const { user } = useAuthentication();
+
+    function signOut() {
+        Firebase.signOut().then(r => null);
+    }
+
     return (
         <View style={stylesSidebar.sideMenuContainer}>
             <View style={stylesSidebar.profileHeader}>
@@ -49,7 +56,8 @@ const CustomSidebarMenu = (props: any) => {
                                 {
                                     text: 'Confirm',
                                     onPress: () => {
-                                        AsyncStorage.clear();
+                                        AsyncStorage.clear().then(r => null);
+                                        signOut();
                                         props.navigation.replace('Auth');
                                     },
                                 },

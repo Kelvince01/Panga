@@ -12,7 +12,7 @@ export default {
     "githubUrl": "https://github.com/Kelvince01/Panga.git",
     "scheme": "Panga",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
+    "sdkVersion": "46.0.0",
     "notification": {
       "icon": "./assets/notification-icon.png",
       "androidMode": "default"

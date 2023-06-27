@@ -13,100 +13,67 @@ import {
 } from 'react-native';
 import { COLORS } from '../assets/AppStyles';
 import Loader from '../components/Loader';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { FIREBASE_AUTH } from "../config/firebaseConfig";
 
 const Register = (props: any) => {
-    const [userName, setUserName] = useState('');
-    const [userEmail, setUserEmail] = useState('');
-    const [userAge, setUserAge] = useState('');
-    const [userAddress, setUserAddress] = useState('');
-    const [userPassword, setUserPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const [errortext, setErrortext] = useState('');
     const [
-        isRegistraionSuccess,
-        setIsRegistraionSuccess
+        isRegistrationSuccess,
+        setIsRegistrationSuccess
     ] = useState(false);
 
     const emailInputRef: any = createRef();
-    const ageInputRef: any = createRef();
-    const addressInputRef: any = createRef();
+    // const ageInputRef: any = createRef();
+    // const addressInputRef: any = createRef();
     const passwordInputRef: any = createRef();
 
-    const handleSubmitButton = () => {
-        setErrortext('');
-        if (!userName) {
-            alert('Please fill Name');
+    const [value, setValue] = useState({
+        email: '',
+        password: '',
+        /*name: '',
+        age: '',
+        address: '',*/
+        error: ''
+    })
+
+    async function signUp() {
+        if (value.email === '' || value.password === '') {
+            setValue({
+                ...value,
+                error: 'Email and password are mandatory.'
+            })
             return;
         }
-        if (!userEmail) {
-            alert('Please fill Email');
-            return;
-        }
-        if (!userAge) {
-            alert('Please fill Age');
-            return;
-        }
-        if (!userAddress) {
-            alert('Please fill Address');
-            return;
-        }
-        if (!userPassword) {
-            alert('Please fill Password');
-            return;
-        }
+
         //Show Loader
         setLoading(true);
-        var dataToSend: any = {
-            name: userName,
-            email: userEmail,
-            age: userAge,
-            address: userAddress,
-            password: userPassword,
-        };
-        var formBody: any = [];
-        for (var key in dataToSend) {
-            var encodedKey: any = encodeURIComponent(key);
-            var encodedValue = encodeURIComponent(dataToSend[key]);
-            formBody.push(encodedKey + '=' + encodedValue);
-        }
-        formBody = formBody.join('&');
 
-        fetch('http://localhost:3000/api/user/register', {
-            method: 'POST',
-            body: formBody,
-            headers: {
-                //Header Defination
-                'Content-Type':
-                    'application/x-www-form-urlencoded;charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                //Hide Loader
-                setLoading(false);
-                console.log(responseJson);
-                // If server response message same as Data Matched
-                if (responseJson.status === 'success') {
-                    setIsRegistraionSuccess(true);
-                    console.log(
-                        'Registration Successful. Please Login to proceed'
-                    );
-                } else {
-                    setErrortext(responseJson.msg);
-                }
+        try {
+            let response = await createUserWithEmailAndPassword(FIREBASE_AUTH, value.email, value.password);
+            setLoading(false);
+            console.log(response);
+            // navigation.navigate('Sign In');
+
+            if (response) { setIsRegistrationSuccess(true); }
+
+            console.log(
+              'Registration Successful. Please Login to proceed'
+            );
+        } catch (error: any) {
+            setValue({
+                ...value,
+                error: error.message,
             })
-            .catch((error) => {
-                //Hide Loader
-                setLoading(false);
-                console.error(error);
-            });
-    };
-    if (isRegistraionSuccess) {
+        }
+    }
+
+    if (isRegistrationSuccess) {
         return (
             <View
                 style={{
                     flex: 1,
-                    backgroundColor: COLORS.TE_PAPA_GREEN_COLOR,
+                    backgroundColor: COLORS.WHITE_COLOR,
                     justifyContent: 'center',
                 }}>
                 <Image
@@ -149,8 +116,17 @@ const Register = (props: any) => {
                         }}
                     />
                 </View>
+
+                {/* {errorText != '' ? (
+                  <Text style={styles.errorTextStyle}>
+                      {errorText}
+                  </Text>
+                ) : null} */}
+
+                {!!value.error && <View style={styles.errorTextStyle}><Text>{value.error}</Text></View>}
+
                 <KeyboardAvoidingView enabled>
-                    <View style={styles.SectionStyle}>
+                    {/*<View style={styles.SectionStyle}>
                         <TextInput
                             style={styles.inputStyle}
                             onChangeText={(UserName) => setUserName(UserName)}
@@ -164,11 +140,12 @@ const Register = (props: any) => {
                             }
                             blurOnSubmit={false}
                         />
-                    </View>
+                    </View>*/}
                     <View style={styles.SectionStyle}>
                         <TextInput
                             style={styles.inputStyle}
-                            onChangeText={(UserEmail) => setUserEmail(UserEmail)}
+                            value={value.email}
+                            onChangeText={(email: string) => setValue({ ...value, email: email })}
                             underlineColorAndroid="#f000"
                             placeholder="Enter Email"
                             placeholderTextColor="#8b9cb5"
@@ -185,23 +162,18 @@ const Register = (props: any) => {
                     <View style={styles.SectionStyle}>
                         <TextInput
                             style={styles.inputStyle}
-                            onChangeText={(UserPassword) =>
-                                setUserPassword(UserPassword)
-                            }
+                            value={value.password}
+                            onChangeText={(password: string) => setValue({ ...value, password: password })}
                             underlineColorAndroid="#f000"
                             placeholder="Enter Password"
                             placeholderTextColor="#8b9cb5"
                             ref={passwordInputRef}
                             returnKeyType="next"
                             secureTextEntry={true}
-                            onSubmitEditing={() =>
-                                ageInputRef.current &&
-                                ageInputRef.current.focus()
-                            }
                             blurOnSubmit={false}
                         />
                     </View>
-                    <View style={styles.SectionStyle}>
+                    {/*<View style={styles.SectionStyle}>
                         <TextInput
                             style={styles.inputStyle}
                             onChangeText={(UserAge) => setUserAge(UserAge)}
@@ -233,16 +205,12 @@ const Register = (props: any) => {
                             onSubmitEditing={Keyboard.dismiss}
                             blurOnSubmit={false}
                         />
-                    </View>
-                    {errortext != '' ? (
-                        <Text style={styles.errorTextStyle}>
-                            {errortext}
-                        </Text>
-                    ) : null}
+                    </View>*/}
+
                     <TouchableOpacity
                         style={styles.buttonStyle}
                         activeOpacity={0.5}
-                        onPress={handleSubmitButton}>
+                        onPress={signUp}>
                         <Text style={styles.buttonTextStyle}>REGISTER</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
@@ -290,12 +258,15 @@ const styles = StyleSheet.create({
         borderColor: COLORS.TE_PAPA_GREEN_COLOR,
     },
     errorTextStyle: {
-        color: COLORS.ERROR_COLOR,
+        color: COLORS.WHITE_COLOR,
         textAlign: 'center',
         fontSize: 14,
+        marginTop: 10,
+        padding: 10,
+        backgroundColor: '#D54826FF',
     },
     successTextStyle: {
-        color: COLORS.WHITE_COLOR,
+        color: COLORS.TE_PAPA_GREEN_COLOR,
         textAlign: 'center',
         fontSize: 18,
         padding: 30,

@@ -13,7 +13,7 @@ import Settings from './Settings';
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const homeScreenStack = ({ navigation }: any) => {
+const HomeScreenStack = ({ navigation }: any) => {
     return (
         <Stack.Navigator initialRouteName="HomeScreen">
             <Stack.Screen
@@ -37,7 +37,7 @@ const homeScreenStack = ({ navigation }: any) => {
     );
 };
 
-const settingScreenStack = ({ navigation }: any) => {
+const SettingScreenStack = ({ navigation }: any) => {
     return (
         <Stack.Navigator
             initialRouteName="SettingsScreen"
@@ -64,7 +64,7 @@ const settingScreenStack = ({ navigation }: any) => {
     );
 };
 
-const expenseScreenStack = ({ navigation }: any) => {
+const ExpenseScreenStack = ({ navigation }: any) => {
     return (
         <Stack.Navigator
             initialRouteName="ExpensesScreen"
@@ -105,19 +105,19 @@ const DrawerNavigationRoutes = () => {
             screenOptions={{ headerShown: false }}
             drawerContent={CustomSidebarMenu}>
             <Drawer.Screen
-                name="homeScreenStack"
+                name="HomeScreenStack"
                 options={{ drawerLabel: 'Home' }}
-                component={homeScreenStack}
+                component={HomeScreenStack}
             />
             <Drawer.Screen
-                name="expenseScreenStack"
+                name="ExpenseScreenStack"
                 options={{ drawerLabel: 'Expenses' }}
-                component={expenseScreenStack}
+                component={ExpenseScreenStack}
             />
             <Drawer.Screen
-                name="settingScreenStack"
+                name="SettingScreenStack"
                 options={{ drawerLabel: 'Settings' }}
-                component={settingScreenStack}
+                component={SettingScreenStack}
             />
         </Drawer.Navigator>
     )

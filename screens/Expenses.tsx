@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { FIRESTORE_DB } from '../config/firebaseConfig';
-// import Ionicons from '@expo/vector-icons/Ionicons';
-// import Entypo from '@expo/vector-icons/Entypo';
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { addDoc, collection, deleteDoc, doc, onSnapshot, updateDoc } from "firebase/firestore";
 
@@ -54,11 +52,11 @@ const Expenses = () => {
         const ref = doc(FIRESTORE_DB, `expenses/${item.id}`);
 
         const toggleDone = async () => {
-            updateDoc(ref, { done: !item.done });
+            await updateDoc(ref, { done: !item.done });
         };
 
         const deleteItem = async () => {
-            deleteDoc(ref);
+            await deleteDoc(ref);
         };
 
         return (

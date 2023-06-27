@@ -1,7 +1,10 @@
 import { View, Text, SafeAreaView } from 'react-native'
 import React from 'react'
+import { useAuthentication } from "../utils/hooks/useAuthentication";
 
 const Home = () => {
+  const { user } = useAuthentication();
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ flex: 1, padding: 16 }}>
@@ -11,6 +14,7 @@ const Home = () => {
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}>
+                  <Text>Welcome {user?.email}!</Text>
                     <Text
                         style={{
                             fontSize: 20,
@@ -36,7 +40,7 @@ const Home = () => {
                         textAlign: 'center',
                         color: 'grey',
                     }}>
-                    www.aboutreact.com
+                    www.panga.com
                 </Text>
             </View>
         </SafeAreaView>

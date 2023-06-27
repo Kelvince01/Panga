@@ -45,20 +45,20 @@ const Firebase = {
         return createUserWithEmailAndPassword(FIREBASE_AUTH, email, password)
     },
     signOut: () => {
-        return signOut()
+        return signOut(FIREBASE_AUTH)
     },
     checkUserAuth: (user: any) => {
         return onAuthStateChanged(FIREBASE_AUTH, user)
     },
 
     // firestore
-    createNewUser: (userData: any) => {
+    /*createNewUser: (userData: any) => {
         return FIRESTORE_DB
-            .firestore()
+            firestore()
             .collection('users')
             .doc(`${userData.uid}`)
             .set(userData)
-    }
+    }*/
 };
 
 export default Firebase
