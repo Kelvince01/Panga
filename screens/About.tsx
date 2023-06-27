@@ -1,12 +1,21 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 const About = () => {
     return (
-        <View>
-            <Text>About</Text>
-        </View>
+        <SafeAreaView>
+            <View>
+                <Text style={styles.header}>About Panga</Text>
+            </View>
+        </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    header: {
+        padding: 4,
+        color: "blue"
+    }
+});
 
 export default About

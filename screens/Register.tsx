@@ -1,16 +1,17 @@
 // Import React and Component
-import React, { useState, createRef } from 'react';
+import React, { createRef, useState } from 'react';
 import {
-    StyleSheet,
-    TextInput,
-    View,
-    Text,
     Image,
-    KeyboardAvoidingView,
     Keyboard,
-    TouchableOpacity,
+    KeyboardAvoidingView,
     ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from 'react-native';
+import { COLORS } from '../assets/AppStyles';
 import Loader from '../components/Loader';
 
 const Register = (props: any) => {
@@ -105,11 +106,11 @@ const Register = (props: any) => {
             <View
                 style={{
                     flex: 1,
-                    backgroundColor: '#307ecc',
+                    backgroundColor: COLORS.TE_PAPA_GREEN_COLOR,
                     justifyContent: 'center',
                 }}>
                 <Image
-                    source={require('../Image/success.png')}
+                    source={require('../assets/success.png')}
                     style={{
                         height: 150,
                         resizeMode: 'contain',
@@ -129,7 +130,7 @@ const Register = (props: any) => {
         );
     }
     return (
-        <View style={{ flex: 1, backgroundColor: '#307ecc' }}>
+        <View style={{ flex: 1, backgroundColor: COLORS.WHITE_COLOR }}>
             <Loader loading={loading} />
             <ScrollView
                 keyboardShouldPersistTaps="handled"
@@ -139,7 +140,7 @@ const Register = (props: any) => {
                 }}>
                 <View style={{ alignItems: 'center' }}>
                     <Image
-                        source={require('../Image/aboutreact.png')}
+                        source={require('../assets/icon.png')}
                         style={{
                             width: '50%',
                             height: 100,
@@ -262,10 +263,10 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     buttonStyle: {
-        backgroundColor: '#7DE24E',
+        backgroundColor: COLORS.TE_PAPA_GREEN_COLOR,
         borderWidth: 0,
-        color: '#FFFFFF',
-        borderColor: '#7DE24E',
+        color: COLORS.WHITE_COLOR,
+        borderColor: COLORS.TE_PAPA_GREEN_COLOR,
         height: 40,
         alignItems: 'center',
         borderRadius: 30,
@@ -275,26 +276,26 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     buttonTextStyle: {
-        color: '#FFFFFF',
+        color: COLORS.WHITE_COLOR,
         paddingVertical: 10,
         fontSize: 16,
     },
     inputStyle: {
         flex: 1,
-        color: 'white',
+        color: COLORS.TE_PAPA_GREEN_COLOR,
         paddingLeft: 15,
         paddingRight: 15,
         borderWidth: 1,
         borderRadius: 30,
-        borderColor: '#dadae8',
+        borderColor: COLORS.TE_PAPA_GREEN_COLOR,
     },
     errorTextStyle: {
-        color: 'red',
+        color: COLORS.ERROR_COLOR,
         textAlign: 'center',
         fontSize: 14,
     },
     successTextStyle: {
-        color: 'white',
+        color: COLORS.WHITE_COLOR,
         textAlign: 'center',
         fontSize: 18,
         padding: 30,

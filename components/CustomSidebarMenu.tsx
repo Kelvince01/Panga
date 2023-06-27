@@ -1,13 +1,14 @@
 // Import React and Component
 import React from 'react';
-import { View, Text, Alert, StyleSheet } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     DrawerContentScrollView,
-    DrawerItemList,
     DrawerItem,
+    DrawerItemList,
 } from '@react-navigation/drawer';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { COLORS } from '../assets/AppStyles';
 
 
 const CustomSidebarMenu = (props: any) => {
@@ -15,8 +16,8 @@ const CustomSidebarMenu = (props: any) => {
         <View style={stylesSidebar.sideMenuContainer}>
             <View style={stylesSidebar.profileHeader}>
                 <View style={stylesSidebar.profileHeaderPicCircle}>
-                    <Text style={{ fontSize: 25, color: '#307ecc' }}>
-                        {'About Panga'.charAt(0)}
+                    <Text style={{ fontSize: 25, color: COLORS.TE_PAPA_GREEN_COLOR }}>
+                        {'About Panga'.charAt(6)}
                     </Text>
                 </View>
                 <Text style={stylesSidebar.profileHeaderText}>
@@ -68,13 +69,13 @@ const stylesSidebar = StyleSheet.create({
     sideMenuContainer: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#307ecc',
+        backgroundColor: COLORS.TE_PAPA_GREEN_COLOR,
         paddingTop: 40,
         color: 'white',
     },
     profileHeader: {
         flexDirection: 'row',
-        backgroundColor: '#307ecc',
+        backgroundColor: COLORS.TE_PAPA_GREEN_COLOR,
         padding: 15,
         textAlign: 'center',
     },

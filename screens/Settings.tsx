@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView } from 'react-native'
 import React from 'react'
+import { SafeAreaView, Text, View } from 'react-native'
 
 const Settings = () => {
     return (
@@ -13,7 +13,7 @@ const Settings = () => {
                     }}>
                     <Text
                         style={{
-                            fontSize: 20,
+                            fontSize: 20, 
                             textAlign: 'center',
                             marginBottom: 16,
                         }}>

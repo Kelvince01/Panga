@@ -1,11 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     ActivityIndicator,
-    View, Text,
+    Image,
     StyleSheet,
-    Image
+    View
 } from 'react-native';
+import { COLORS } from '../assets/AppStyles';
 
 const SplashScreen = ({ navigation }: any) => {
     //State for ActivityIndicator animation
@@ -28,7 +29,7 @@ const SplashScreen = ({ navigation }: any) => {
     return (
         <View style={styles.container}>
             <Image
-                source={require('../Image/aboutreact.png')}
+                source={require('../assets/icon.png')}
                 style={{ width: '90%', resizeMode: 'contain', margin: 30 }}
             />
             <ActivityIndicator
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#307ecc',
+        backgroundColor: COLORS.TE_PAPA_GREEN_COLOR,
     },
     activityIndicator: {
         alignItems: 'center',

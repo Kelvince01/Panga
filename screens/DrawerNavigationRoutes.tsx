@@ -1,14 +1,14 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from 'react';
 
 // Import Navigators from React Navigation
-import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import Settings from './Settings';
-import Home from './Home';
+import { createStackNavigator } from '@react-navigation/stack';
+import { COLORS } from '../assets/AppStyles';
 import CustomSidebarMenu from '../components/CustomSidebarMenu';
 import NavigationDrawerHeader from '../components/NavigationDrawerHeader';
 import Expenses from './Expenses';
+import Home from './Home';
+import Settings from './Settings';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -25,9 +25,9 @@ const homeScreenStack = ({ navigation }: any) => {
                         <NavigationDrawerHeader navigationProps={navigation} />
                     ),
                     headerStyle: {
-                        backgroundColor: '#307ecc', //Set Header color
+                        backgroundColor: COLORS.TE_PAPA_GREEN_COLOR, //Set Header color
                     },
-                    headerTintColor: '#fff', //Set Header text color
+                    headerTintColor: COLORS.WHITE_COLOR, //Set Header text color
                     headerTitleStyle: {
                         fontWeight: 'bold', //Set Header text style
                     },
@@ -46,9 +46,9 @@ const settingScreenStack = ({ navigation }: any) => {
                     <NavigationDrawerHeader navigationProps={navigation} />
                 ),
                 headerStyle: {
-                    backgroundColor: '#307ecc', //Set Header color
+                    backgroundColor: COLORS.TE_PAPA_GREEN_COLOR, //Set Header color
                 },
-                headerTintColor: '#fff', //Set Header text color
+                headerTintColor: COLORS.WHITE_COLOR, //Set Header text color
                 headerTitleStyle: {
                     fontWeight: 'bold', //Set Header text style
                 },
@@ -73,9 +73,9 @@ const expenseScreenStack = ({ navigation }: any) => {
                     <NavigationDrawerHeader navigationProps={navigation} />
                 ),
                 headerStyle: {
-                    backgroundColor: '#307ecc', //Set Header color
+                    backgroundColor: COLORS.TE_PAPA_GREEN_COLOR, //Set Header color
                 },
-                headerTintColor: '#fff', //Set Header text color
+                headerTintColor: COLORS.WHITE_COLOR, //Set Header text color
                 headerTitleStyle: {
                     fontWeight: 'bold', //Set Header text style
                 },
@@ -84,7 +84,7 @@ const expenseScreenStack = ({ navigation }: any) => {
                 name="ExpensesScreen"
                 component={Expenses}
                 options={{
-                    title: 'expenses', //Set Header Title
+                    title: 'Expenses', //Set Header Title
                 }}
             />
         </Stack.Navigator>

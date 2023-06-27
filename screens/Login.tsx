@@ -2,21 +2,21 @@
 // https://aboutreact.com/react-native-login-and-signup/
 
 // Import React and Component
-import React, { useState, createRef } from 'react';
+import React, { createRef, useState } from 'react';
 import {
-    StyleSheet,
-    TextInput,
-    View,
-    Text,
-    ScrollView,
     Image,
     Keyboard,
+    KeyboardAvoidingView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
     TouchableOpacity,
-    KeyboardAvoidingView
+    View
 } from 'react-native';
+import { COLORS } from '../assets/AppStyles';
 import Loader from '../components/Loader';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }: any) => {
     const [userEmail, setUserEmail] = useState('');
@@ -93,7 +93,7 @@ const Login = ({ navigation }: any) => {
                     <KeyboardAvoidingView enabled>
                         <View style={{ alignItems: 'center' }}>
                             <Image
-                                source={require('../Image/aboutreact.png')}
+                                source={require('../assets/icon.png')}
                                 style={{
                                     width: '50%',
                                     height: 100,
@@ -167,7 +167,8 @@ const styles = StyleSheet.create({
     mainBody: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#307ecc',
+        backgroundColor: COLORS.WHITE_COLOR,
+        // backgroundColor: '#307ecc',
         alignContent: 'center',
     },
     SectionStyle: {
@@ -179,10 +180,10 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     buttonStyle: {
-        backgroundColor: '#7DE24E',
+        backgroundColor: COLORS.TE_PAPA_GREEN_COLOR,
         borderWidth: 0,
-        color: '#FFFFFF',
-        borderColor: '#7DE24E',
+        color: COLORS.WHITE_COLOR,
+        borderColor: COLORS.TE_PAPA_GREEN_COLOR,
         height: 40,
         alignItems: 'center',
         borderRadius: 30,
@@ -192,21 +193,21 @@ const styles = StyleSheet.create({
         marginBottom: 25,
     },
     buttonTextStyle: {
-        color: '#FFFFFF',
+        color: COLORS.WHITE_COLOR,
         paddingVertical: 10,
         fontSize: 16,
     },
     inputStyle: {
         flex: 1,
-        color: 'white',
+        color: COLORS.TE_PAPA_GREEN_COLOR,
         paddingLeft: 15,
         paddingRight: 15,
         borderWidth: 1,
         borderRadius: 30,
-        borderColor: '#dadae8',
+        borderColor: COLORS.TE_PAPA_GREEN_COLOR,
     },
     registerTextStyle: {
-        color: '#FFFFFF',
+        color: COLORS.TEAK_COLOR,
         textAlign: 'center',
         fontWeight: 'bold',
         fontSize: 14,
@@ -214,7 +215,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     errorTextStyle: {
-        color: 'red',
+        color: COLORS.ERROR_COLOR,
         textAlign: 'center',
         fontSize: 14,
     },

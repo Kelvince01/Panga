@@ -4,13 +4,11 @@
 
 import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 // Optionally import the services that you want to use
-// import {...} from "firebase/auth";
 // import {...} from "firebase/database";
-// import {...} from "firebase/firestore";
 // import {...} from "firebase/functions";
 // import {...} from "firebase/storage";
 
@@ -33,7 +31,34 @@ const firebaseConfig = {
 export const FIREBASE_APP = initializeApp(firebaseConfig);
 export const FIREBASE_ANALYTICS = getAnalytics(FIREBASE_APP);
 
-export const fireDB = FIREBASE_APP.firestore();
+// export const fireDB = FIREBASE_APP.firestore();
 
 export const FIRESTORE_DB = getFirestore(FIREBASE_APP);
 export const FIREBASE_AUTH = getAuth(FIREBASE_APP);
+
+const Firebase = {
+    // auth
+    loginWithEmail: (email: string, password: string) => {
+        return signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
+    },
+    signupWithEmail: (email: string, password: string) => {
+        return createUserWithEmailAndPassword(FIREBASE_AUTH, email, password)
+    },
+    signOut: () => {
+        return signOut()
+    },
+    checkUserAuth: (user: any) => {
+        return onAuthStateChanged(FIREBASE_AUTH, user)
+    },
+
+    // firestore
+    createNewUser: (userData: any) => {
+        return FIRESTORE_DB
+            .firestore()
+            .collection('users')
+            .doc(`${userData.uid}`)
+            .set(userData)
+    }
+};
+
+export default Firebase

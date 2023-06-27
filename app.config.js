@@ -8,23 +8,60 @@ export default {
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "description": "",
+    "githubUrl": "https://github.com/Kelvince01/Panga.git",
+    "scheme": "Panga",
+    "privacy": "public",
+    "sdkVersion": "36.0.0",
+    "notification": {
+      "icon": "./assets/notification-icon.png",
+      "androidMode": "default"
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "green"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.kelvince.Panga",
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ],
+        "LSApplicationQueriesSchemes": [
+          "transportili"
+        ],
+        "NSCameraUsageDescription": "L'application utilise l'appareil photo pour prendre une photo ou numériser vos documents.",
+        "NSLocationWhenInUseUsageDescription": "L'application utilise votre position pour aider les chauffeurs ou les transporteurs à vous trouver sur la carte."
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyA8Wcik6dTuxBKolLSm5ONBvXNz8Z0T-6c"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.kelvince.Panga"
+      "package": "com.kelvince.Panga",
+      "versionCode": 6,
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyA8Wcik6dTuxBKolLSm5ONBvXNz8Z0T-6c"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

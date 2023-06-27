@@ -1,13 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
 
 // Import Navigators from React Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { COLORS } from './assets/AppStyles';
+import DrawerNavigationRoutes from './screens/DrawerNavigationRoutes';
 import Login from './screens/Login';
 import Register from './screens/Register';
 import SplashScreen from './screens/SplashScreen';
-import DrawerNavigationRoutes from './screens/DrawerNavigationRoutes';
 
 const Stack = createStackNavigator();
 
@@ -26,9 +25,9 @@ const Auth = () => {
         options={{
           title: 'Register', //Set Header Title
           headerStyle: {
-            backgroundColor: '#307ecc', //Set Header color
+            backgroundColor: COLORS.TE_PAPA_GREEN_COLOR, //Set Header color
           },
-          headerTintColor: '#fff', //Set Header text color
+          headerTintColor: COLORS.WHITE_COLOR, //Set Header text color
           headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
           },
