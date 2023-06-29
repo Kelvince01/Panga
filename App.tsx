@@ -1,13 +1,13 @@
-
 // Import Navigators from React Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { ThemeProvider } from 'react-native-elements';
+
 import { COLORS } from './assets/AppStyles';
 import DrawerNavigationRoutes from './screens/DrawerNavigationRoutes';
 import Login from './screens/Login';
 import Register from './screens/Register';
 import SplashScreen from './screens/SplashScreen';
-import { ThemeProvider } from "react-native-elements";
 
 const Stack = createStackNavigator();
 

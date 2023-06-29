@@ -3,7 +3,7 @@ import React from 'react'
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 
 const Home = () => {
-  const { user } = useAuthentication();
+  const { user } = useAuthentication(); 
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
