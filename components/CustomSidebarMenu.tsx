@@ -24,7 +24,7 @@ const CustomSidebarMenu = (props: any) => {
       <View style={stylesSidebar.profileHeader}>
         <View style={stylesSidebar.profileHeaderPicCircle}>
           <Text style={{ fontSize: 25, color: COLORS.TE_PAPA_GREEN_COLOR }}>
-            {user?.email.charAt(0)}
+            {user?.email!.charAt(0)}
           </Text>
         </View>
         <Text style={stylesSidebar.profileHeaderText}>About Panga</Text>

@@ -17,7 +17,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import DatePicker from 'react-native-datepicker';
+import DatePicker from "expo-datepicker";
+// import DatePicker from 'react-native-datepicker';
 
 import { FIRESTORE_DB } from '../config/firebaseConfig';
 
@@ -125,6 +126,12 @@ const Budgets = () => {
         />
 
         <DatePicker
+          date={budget.achieveDate}
+          onChange={(achieveDate: string) => setBudget({ ...budget, achieveDate })}
+          icon={<Entypo name="chevron-right" size={40} color="#689CA3" />}
+        />
+
+        {/*<DatePicker
           style={styles.achieveDateStyles}
           date={budget.achieveDate}
           mode="date"
@@ -134,7 +141,7 @@ const Budgets = () => {
           maxDate="2030-06-01"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
-          /*customStyles={{
+          customStyles={{
             dateIcon: {
               position: 'absolute',
               left: 0,
@@ -144,11 +151,11 @@ const Budgets = () => {
             dateInput: {
               marginLeft: 36,
             },
-          }}*/
+          }}
           onDateChange={(achieveDate: string) => {
             setBudget({ ...budget, achieveDate });
           }}
-        />
+        />*/}
 
         <Button
           onPress={addBudget}
