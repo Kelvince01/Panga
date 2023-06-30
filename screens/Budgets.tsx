@@ -17,7 +17,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import DatePicker from "expo-datepicker";
 // import DatePicker from 'react-native-datepicker';
 
 import { FIRESTORE_DB } from '../config/firebaseConfig';
@@ -25,10 +24,19 @@ import { FIRESTORE_DB } from '../config/firebaseConfig';
 export interface Budget {
   id?: string;
   name?: string;
+  period?: string;
   amount?: string;
+  currency?: string;
+  account?: string;
+  recurringTransaction?: boolean;
   achieved?: boolean;
   budgetDate?: Date;
   achieveDate?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  note?: string;
+  budgetOverSpent?: boolean;
+  notifyPrequartely?: boolean;
 }
 
 const Budgets = () => {
@@ -38,7 +46,9 @@ const Budgets = () => {
     amount: '0',
     achieved: false,
     budgetDate: new Date(),
-    achieveDate: new Date('10/10/2024').toDateString(),
+    // achieveDate: new Date('10/10/2024').toDateString(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
   });
   const [budgets, setBudgets] = useState<any[]>();
 
@@ -83,7 +93,7 @@ const Budgets = () => {
     const ref = doc(FIRESTORE_DB, `budgets/${item.id}`);
 
     const toggleAchieved = async () => {
-      await updateDoc(ref, { achieved: !item.achieved });
+      await updateDoc(ref, { achieved: !item.achieved, updatedAt: new Date() });
     };
 
     const deleteBudget = async () => {
@@ -125,11 +135,13 @@ const Budgets = () => {
           value={budget.amount}
         />
 
-        <DatePicker
+        {/*<DatePicker
           date={budget.achieveDate}
-          onChange={(achieveDate: string) => setBudget({ ...budget, achieveDate })}
+          onChange={(achieveDate: string) =>
+            setBudget({ ...budget, achieveDate })
+          }
           icon={<Entypo name="chevron-right" size={40} color="#689CA3" />}
-        />
+        />*/}
 
         {/*<DatePicker
           style={styles.achieveDateStyles}

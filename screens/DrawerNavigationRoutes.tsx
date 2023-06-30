@@ -6,10 +6,11 @@ import React from 'react';
 import { COLORS } from '../assets/AppStyles';
 import CustomSidebarMenu from '../components/CustomSidebarMenu';
 import NavigationDrawerHeader from '../components/NavigationDrawerHeader';
+import About from './About';
+import Budgets from './Budgets';
 import Expenses from './Expenses';
 import Home from './Home';
 import Settings from './Settings';
-import Budgets from "./Budgets";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -119,6 +120,34 @@ const BudgetScreenStack = ({ navigation }: any) => {
   );
 };
 
+const NotificationScreenStack = ({ navigation }: any) => {
+  return (
+    <Stack.Navigator
+      initialRouteName="NotificationsScreen"
+      screenOptions={{
+        headerLeft: () => (
+          <NavigationDrawerHeader navigationProps={navigation} />
+        ),
+        headerStyle: {
+          backgroundColor: COLORS.TE_PAPA_GREEN_COLOR, //Set Header color
+        },
+        headerTintColor: COLORS.WHITE_COLOR, //Set Header text color
+        headerTitleStyle: {
+          fontWeight: 'bold', //Set Header text style
+        },
+      }}>
+      <Stack.Screen
+        name="NotificationsScreen"
+        // component={NotificationsScreen}
+        component={About}
+        options={{
+          title: 'Notifications', //Set Header Title
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const DrawerNavigationRoutes = () => {
   return (
     // drawerContentOptions={{
@@ -147,10 +176,15 @@ const DrawerNavigationRoutes = () => {
         options={{ drawerLabel: 'Budgets' }}
         component={BudgetScreenStack}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="SettingScreenStack"
         options={{ drawerLabel: 'Settings' }}
         component={SettingScreenStack}
+      /> */}
+      <Drawer.Screen
+        name="NotificationScreenStack"
+        options={{ drawerLabel: 'Notifications' }}
+        component={NotificationScreenStack}
       />
     </Drawer.Navigator>
   );

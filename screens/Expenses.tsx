@@ -18,25 +18,44 @@ import {
   View,
 } from 'react-native';
 
+import { COLORS } from '../assets/AppStyles';
 import { FIRESTORE_DB } from '../config/firebaseConfig';
 
 export interface Expense {
-  done: boolean;
-  id: string;
-  title: string;
+  done?: boolean;
+  id?: string;
+  name?: string;
+  amount?: string;
+  category?: string;
+  expenseDate?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const Expenses = () => {
-  const [expenses, setExpenses] = useState<any[]>([]);
-  const [expense, setExpense] = useState('');
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [expense, setExpense] = useState<Expense>({
+    name: '',
+    category: '',
+    amount: '',
+  });
 
   const addExpense = async () => {
     try {
       const docRef = await addDoc(collection(FIRESTORE_DB, 'expenses'), {
-        title: expense,
+        name: expense.name,
+        expenseDate: new Date(),
+        amount: expense.amount,
+        category: expense.category,
         done: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       });
-      setExpense('');
+      setExpense({
+        name: '',
+        category: '',
+        amount: '',
+      });
       console.log('Document written with ID: ', docRef.id);
     } catch (e) {
       console.error('Error adding document: ', e);
@@ -71,7 +90,7 @@ const Expenses = () => {
       await updateDoc(ref, { done: !item.done });
     };
 
-    const deleteItem = async () => {
+    const deleteExpense = async () => {
       await deleteDoc(ref);
     };
 
@@ -82,13 +101,13 @@ const Expenses = () => {
             <Ionicons name="md-checkmark-circle" size={32} color="green" />
           )}
           {!item.done && <Entypo name="circle" size={32} color="black" />}
-          <Text style={styles.expenseText}>{item.title}</Text>
+          <Text style={styles.expenseText}>{item.name}</Text>
         </TouchableOpacity>
         <Ionicons
           name="trash-bin-outline"
           size={24}
           color="red"
-          onPress={deleteItem}
+          onPress={deleteExpense}
         />
       </View>
     );
@@ -99,23 +118,42 @@ const Expenses = () => {
       <View style={styles.form}>
         <TextInput
           style={styles.input}
-          placeholder="Add new expense"
-          onChangeText={(text: string) => setExpense(text)}
-          value={expense}
+          placeholder="Expense name e.g., Transport"
+          onChangeText={(name: string) => setExpense({ ...expense, name })}
+          value={expense.name}
         />
-        <Button
-          onPress={addExpense}
-          title="Add Expense"
-          disabled={expense === ''}
+        <TextInput
+          style={styles.input}
+          placeholder="Category e.g., Food"
+          onChangeText={(category: string) =>
+            setExpense({ ...expense, category })
+          }
+          value={expense.category}
         />
+        <TextInput
+          style={styles.input}
+          placeholder="Amount e.g., 10,000"
+          onChangeText={(amount: string) => setExpense({ ...expense, amount })}
+          value={expense.amount}
+          keyboardType="numeric"
+        />
+
+        <TouchableOpacity style={styles.button}>
+          <Button
+            onPress={addExpense}
+            title="Add"
+            disabled={expense.name === ''}
+          />
+        </TouchableOpacity>
       </View>
 
       {expenses.length > 0 && (
         <View>
+          <Text>Expenses</Text>
           <FlatList
             data={expenses}
             renderItem={renderExpense}
-            keyExtractor={expense => expense.id}
+            keyExtractor={(expense: any) => expense.id}
             // removeClippedSubviews={true}
           />
         </View>
@@ -130,7 +168,7 @@ const styles = StyleSheet.create({
   },
   form: {
     marginVertical: 20,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
   },
   input: {
@@ -140,11 +178,16 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     padding: 10,
     backgroundColor: '#fff',
-    marginLeft: 4,
+    margin: 8,
+    width: '100%',
+    marginBottom: 12,
+    borderColor: '#ccc',
   },
   button: {
-    padding: 4,
+    padding: 10,
     marginLeft: 4,
+    width: '100%',
+    color: COLORS.TE_PAPA_GREEN_COLOR,
   },
   expense: {
     flexDirection: 'row',
